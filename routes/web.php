@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PetController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,6 +11,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/admin', function (){
-    return view('layouts.admin');
+Route::get('/inicio', function (){
+    return view('layouts.inicio');
 });
+
+Route::resource('pet', PetController::class);

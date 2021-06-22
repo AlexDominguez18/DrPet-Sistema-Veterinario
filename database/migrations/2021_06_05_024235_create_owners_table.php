@@ -19,6 +19,7 @@ class CreateOwnersTable extends Migration
             $table->string('telefono', 15);
             $table->string('correo', 50);
             $table->string('direccion', 50);
+            $table->foreignId("pet_id");
             $table->timestamps();
         });
     }

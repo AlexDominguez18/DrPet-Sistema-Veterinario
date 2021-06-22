@@ -15,7 +15,7 @@ class CreatePetsTable extends Migration
     {
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('duenio_id');
+            $table->foreignId('owner_id');
             $table->string('nombre',30);
             $table->char('sexo', 1);
             $table->string('raza',50);
@@ -26,6 +26,7 @@ class CreatePetsTable extends Migration
             $table->boolean('adoptable');
             $table->foreignId('vacunas');
             $table->foreignId('medicamentos');
+            $table->string("foto");
             $table->timestamps();
         });
     }
