@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pet;
+use App\Models\Owner;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class PetController extends Controller
 {
@@ -14,7 +16,7 @@ class PetController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.listaMascotas');
     }
 
     /**
@@ -24,7 +26,8 @@ class PetController extends Controller
      */
     public function create()
     {
-        return view('layouts.mascotaForm');
+        $owners = Owner::get();
+        return view('layouts.nuevaMascota', compact(['owners']));
     }
 
     /**
@@ -35,7 +38,17 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $petData = $request->except('_token');
+        
+        if ($request->hasFile('foto')){
+            $petData['foto'] = $request->file('foto')->store('uploads','public');
+        }else{
+            $petData['foto'] = 'img/PetAvatarDefault.png';
+        }
+
+        Pet::insert($petData);
+
+        return view('layouts.inicio');
     }
 
     /**

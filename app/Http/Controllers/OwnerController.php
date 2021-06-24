@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Owner;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class OwnerController extends Controller
 {
@@ -15,7 +16,10 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Owner::create($request->all());
+
+        $owners = Owner::get();
+        return view('layouts.nuevaMascota', compact(['owners']));
     }
 
     /**
