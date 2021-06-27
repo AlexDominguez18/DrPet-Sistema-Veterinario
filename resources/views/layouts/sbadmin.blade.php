@@ -67,7 +67,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="{{ route('pet.create')}}">Agregar mascota</a>
-                        <a class="collapse-item" href="#">Listar mascotas</a>
+                        <a class="collapse-item" href="{{ route('pet.index') }}">Listar mascotas</a>
                     </div>
                 </div>
             </li>
@@ -167,7 +167,12 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
+                                @auth
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>                                    
+                                @endauth
+                                @guest
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
+                                @endguest
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('img/usuario.svg')}}">
                             </a>

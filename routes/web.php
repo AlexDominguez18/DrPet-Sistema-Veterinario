@@ -19,4 +19,4 @@ Route::get('/inicio', function (){
 
 Route::post('/owner', [OwnerController::class,'store']);
 
-Route::resource('pet', PetController::class);
+Route::resource('pet', PetController::class)->middleware('auth');

@@ -16,7 +16,8 @@ class PetController extends Controller
      */
     public function index()
     {
-        return view('layouts.listaMascotas');
+        $pets = Pet::get();
+        return view('layouts.listaMascotas',compact(['pets']));
     }
 
     /**
