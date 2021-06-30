@@ -1,24 +1,29 @@
 @section('mascota-form')
+
 <div>
     <h3>Datos de la mascota</h3>
-    <hr>    
+    <hr>
     @if (isset($pet))
-    <form class="was-validated" method="POST" action="{{ route('pet.update',$pet) }}" enctype="multipart/form-data">    
+    <form class="form" method="POST" action="{{ route('pet.update',$pet) }}" enctype="multipart/form-data">
         @method('PATCH')
     @else
-    <form class="was-validated" method="POST" action="{{ route('pet.store') }}" enctype="multipart/form-data">
+    <form class="form" method="POST" action="{{ route('pet.store') }}" enctype="multipart/form-data">
     @endif
         @csrf
         <!--Imagen de la mascota-->
         <div class="form-group align-self-start">
             <div class="d-flex justify-content-start">
                 @if (isset($pet))
-                <img src="{{asset('storage').'/'.$pet->foto}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>
+                    @if ($pet->foto !== "img/PetAvatarDefault.png")
+                    <img src="{{asset('storage').'/'.$pet->foto}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>
+                    @else
+                    <img src="{{asset('img/PetAvatarDefault.png')}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>                        
+                    @endif
                 @else
-                <img src="{{asset('img/PetAvatarDefault.png')}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>    
-                @endif 
+                <img src="{{asset('img/PetAvatarDefault.png')}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>
+                @endif
                 <div class="align-self-end">
-                    <input class="custom-file-input form-control" type="file" name="foto" id="foto" 
+                    <input class="custom-file-input form-control" type="file" name="foto" id="foto"
                             onchange="document.getElementById('fotoPreview').src = window.URL.createObjectURL(this.files[0])">
                     <label for="foto" class="btn btn-light btn-icon-split">
                         <span class="icon text-gray-600">
@@ -28,73 +33,113 @@
                     </label>
                 </div>
             </div>
+            @error('foto')
+            <div class="alert alert-danger">{{$message}}</div>
+            @enderror
         </div>
         <!--Input para el nombre de la mascota -->
         <div class="form-group row">
             <div class="col-md-4">
-                <input 
+                <input
                     type="textarea"
-                    class="form-control is-invalid"
+                    class="form-control @error('nombre') is-invalid @enderror"
                     name="nombre"
                     id="nombre"
                     placeholder="Nombre..."
-                    value="{{$pet->nombre}}" 
+                    @if (isset($pet))
+                    value="{{ $pet->nombre }}"
+                    @else
+                    value="{{old('nombre')}}"
+                    @endif
                 required>
+                @error('nombre')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
             <!--Text para la raza de la mascota-->
             <div class="col-md-4">
-                <input 
+                <input
                     type="text"
-                    class="form-control is-invalid"
-                    name="raza" 
-                    id="raza" 
+                    class="form-control @error('raza') is-invalid @enderror"
+                    name="raza"
+                    id="raza"
                     placeholder="Raza..."
-                    value="{{$pet->raza}}" 
+                    @if (isset($pet))
+                    value="{{ $pet->raza}}"
+                    @else
+                    value="{{old('raza')}}"
+                    @endif
                 required>
+                @error('raza')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
             <!--Text para el color de la mascota-->
             <div class="col-md-4">
-                <input 
-                    type="text" 
-                    class="form-control is-invalid" 
-                    name="color" 
-                    id="color" 
+                <input
+                    type="text"
+                    class="form-control @error('color') is-invalid @enderror"
+                    name="color"
+                    id="color"
                     placeholder="Color..."
-                    value="{{$pet->color}}" 
+                    @if (isset($pet))
+                    value="{{ $pet->color}}"
+                    @else
+                    value="{{old('color')}}"
+                    @endif
                 required>
+                @error('color')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-4">
-                <input 
-                    type="text" 
-                    class="form-control is-invalid" 
-                    name="especie" 
-                    id="especie" 
+                <input
+                    type="text"
+                    class="form-control @error('especie') is-invalid @enderror"
+                    name="especie"
+                    id="especie"
                     placeholder="Especie..."
-                    value="{{$pet->especie}}" 
+                    @if (isset($pet))
+                    value="{{ $pet->especie}}"
+                    @else
+                    value="{{old('especie')}}"
+                    @endif
                 required>
+                @error('especie')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
             <div class="col-sm-1 text-center">
                 <label for="fecha_consulta">Consulta:</label>
             </div>
             <div class="col-md-7">
-                <input 
-                    type="date" 
-                    class="form-control is-invalid" 
-                    name="fecha_consulta" 
-                    id="fecha_consulta" 
-                    value="{{$pet->fecha_consulta}}"
+                <input
+                    type="date"
+                    class="form-control @error('fecha_consulta') is-invalid @enderror"
+                    name="fecha_consulta"
+                    id="fecha_consulta"
+                    @if (isset($pet))
+                    value="{{ $pet->fecha_consulta}}"
+                    @else
+                    value="{{old('fecha_consulta')}}"
+                    @endif
                 required>
+                @error('fecha_consulta')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
         </div>
         <div>
             <label for="observaciones"><strong>Observaciones:</strong></label>
-            <textarea 
-                class="form-control is-invalid" 
-                name="observaciones" 
-                id="observaciones" 
-            required>{{$pet->observaciones}}</textarea>
+            <textarea
+                class="form-control @error('observaciones') is-invalid @enderror"
+                name="observaciones"
+                id="observaciones"required>@if (isset($pet)){{ $pet->observaciones }}@endif</textarea>
+                @error('observaciones')
+                <div class="invalid-feedback">{{$message}}</div>
+                @enderror
         </div><br>
         <div class="form-group row">
             <!--Radio para el sexo de la mascota-->
@@ -131,19 +176,23 @@
             </div>
             <legend class="col-form-label col-sm-1 pt-0"><strong>Dueño:</strong></legend>
             <div class="col-md-4">
-                <select id="owner_id" name="owner_id" class="form-select form-select-lg mb-3 align-self-cente" aria-label=".form-select-lg example">
+                <select id="owner_id" name="owner_id" class="form-select form-select-lg mb-3 align-self-cente" required>
+                    <option value="0" selected>Seleccione al dueño de la mascota...</option>
                     @foreach ($owners as $owner)
                         @if (isset($pet))
                             @if ($owner->id === $pet->owner->id)
-                                <option value="{{ $owner->id }}" selected>{{ $pet->owner->nombre }}</option>
+                                <option value="{{ $owner->id }}" 
+                                    @if(old('owner_id')==$owner->id)selected @endif>{{ $pet->owner->nombre }}</option>
                                 @continue
                             @endif
                         @else
-                        <option selected>Seleccione al dueño de la mascota...</option>
-                        @endif    
+                        @endif
                         <option value="{{ $owner->id }}">{{ $owner->nombre }}</option>
                     @endforeach
                 </select>
+                @error('owner_id')
+                <div class="alert alert-danger">{{$message}}</div>
+                @enderror
             </div>
         </div>
         <!--Adoptable falso porque es mascota con duenio-->

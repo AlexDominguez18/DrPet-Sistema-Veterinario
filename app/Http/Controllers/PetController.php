@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Models\Owner;
+use App\Rules\MatchPassword;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class PetController extends Controller
 {
+    private $validationRules;
+
+    public function __construct()
+    {
+        $this->validationRules = [
+            "nombre" => ['required','string','min: 3','max:30'],
+            "raza" => ['required','string','min:5','max:50'],
+            "color" => ['required','string','min:3','max:25'],
+            "especie" => ['required'],
+            "fecha_consulta" => ['required','after:yesterday'],
+            "observaciones" => ['required','min:5'],
+            "sexo" => ['required'],
+            "foto" => ['image','max:5120'],
+            "owner_id" => ['exists:App\Models\Owner,id']
+        ];
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,6 +57,10 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+        //Validando los campos llenados
+        $request->validate($this->validationRules);
+        
+        //Si los campos estan bien, creamos a la mascota
         $petData = $request->except('_token');
         
         if ($request->hasFile('foto')){
@@ -49,7 +71,7 @@ class PetController extends Controller
 
         Pet::insert($petData);
 
-        return view('layouts.inicio');
+        return redirect()->route('pet.index');
     }
 
     /**
@@ -85,7 +107,20 @@ class PetController extends Controller
      */
     public function update(Request $request, Pet $pet)
     {
-        //
+        $petData = $request->except(['_token','_method']);
+        $id = $pet->id;
+
+        //Checando la existencia de la foto
+        if ($request->hasFile('foto')){
+            $pet = Pet::findOrFail($id);
+            Storage::delete('public/'.$pet->foto);
+            $petData['foto'] = $request->file('foto')->store('uploads','public');
+        }
+
+        Pet::where('id','=',$id)->update($petData);
+        $pet = Pet::findOrFail($id);
+
+        return redirect()->route('pet.edit',$pet);
     }
 
     /**
@@ -94,8 +129,23 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pet $pet)
+    public function destroy(Request $request, Pet $pet)
     {
-        //
+        $request->validate([
+            'password' => ['required', new MatchPassword]
+        ]);
+
+        if ($pet->foto !== 'img/PetAvatarDefault.png'){
+            Storage::delete('public/'.$pet->foto);
+        }
+
+        Pet::destroy($pet->id);
+        
+        //Si ya un duenio ya no tiene mascotas lo podemos eliminar
+        if (Owner::find($pet->owner_id)->pets->isEmpty()){
+            Owner::destroy(Owner::find($pet->owner_id)->id);
+        }
+
+        return redirect()->route('pet.index');
     }
 }

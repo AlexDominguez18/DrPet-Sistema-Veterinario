@@ -14,7 +14,7 @@ DrPet es una aplicación web que permite gestionar los elementos básicos de una
 5. Crear llave: `php artisan key:generate`
 6. Configurar nombre de base de datos en .env
 7. Ejecutar las migraciones: `php artisan migrate`
-
+8. Linkear storage con el public, para mostrar imágenes: `php artisan storage:link`
 
 ## Extra
 

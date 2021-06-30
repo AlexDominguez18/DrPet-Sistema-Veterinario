@@ -17,6 +17,10 @@ Route::get('/inicio', function (){
     return view('layouts.inicio');
 });
 
+//Pet routes
+Route::resource('pet', PetController::class)->middleware('auth');
+
+//Owner routes
 Route::post('/owner', [OwnerController::class,'store']);
 
-Route::resource('pet', PetController::class)->middleware('auth');
+Route::patch('/owner/{owner}/{pet}',[OwnerController::class,'update']);

@@ -16,8 +16,6 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('libs/sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('libs/datatables/DataTables/css/dataTables.dataTables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('libs/datatables/dataTables.bootstrap4.min.css') }}">
 </head>
 
@@ -263,7 +261,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('libs/sbadmin/js/sb-admin-2.min.js')}}"></script>
     <script src="{{ asset('libs/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('libs/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('libs/datatables/tables.js') }}"></script>
 
 </body>
