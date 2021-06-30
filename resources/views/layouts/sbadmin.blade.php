@@ -247,7 +247,11 @@
                 <div class="modal-body">Presione "Salir" para confirma su salida del sistema.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="login.html">Salir</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a class="btn btn-primary" href="{{ route('logout') }}" 
+                            onclick="event.preventDefault();this.closest('form').submit();">Salir</a>
+                    </form>                        
                 </div>
             </div>
         </div>

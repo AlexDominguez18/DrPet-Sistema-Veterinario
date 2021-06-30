@@ -60,7 +60,7 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
-        //
+        return view('layouts.mostrarMascota',compact(['pet']));
     }
 
     /**
@@ -71,7 +71,9 @@ class PetController extends Controller
      */
     public function edit(Pet $pet)
     {
-        //
+        $owners = Owner::get();
+        $owner = $pet->owner;
+        return view('layouts.editarMascota',compact(['pet','owners','owner']));
     }
 
     /**
