@@ -33,6 +33,7 @@
             <div class="col-md-6">
                 <input
                     type="number"
+                    step=".01"
                     class="form-control @error('precio_compra') is-invalid @enderror"
                     name="precio_compra"
                     id="precio_compra"
@@ -55,6 +56,7 @@
              <div class="col-md-6">
                 <input
                     type="number"
+                    step=".01"
                     class="form-control @error('precio_venta') is-invalid @enderror"
                     name="precio_venta"
                     id="precio_venta"
@@ -73,7 +75,18 @@
                 <label for="existencias">Existencias:</label>
             </div>
             <div class="col-md-4">
-                <input type="number" min="1" id="existencias" name="existencias" class="form-control" required>
+                <input
+                    type="number"
+                    min="1"
+                    id="existencias"
+                    name="existencias"
+                    class="form-control"
+                    @if (isset($product))
+                    value="{{ $product->existencias}}"
+                    @else
+                    value="{{old('existencias')}}"
+                    @endif
+                required>
                 @error('existencias')
                 <div class="alert alert-danger">{{$message}}</div>
                 @enderror
