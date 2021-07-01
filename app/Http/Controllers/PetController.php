@@ -36,7 +36,7 @@ class PetController extends Controller
     {
         $pets = Pet::get();
         $species = Specie::get();
-        return view('layouts.listaMascotas',compact(['pets','species']));
+        return view('pets.petList',compact(['pets','species']));
     }
 
     /**
@@ -48,7 +48,7 @@ class PetController extends Controller
     {
         $owners = Owner::get();
         $species = Specie::get();
-        return view('layouts.nuevaMascota', compact(['owners','species']));
+        return view('pets.newPet', compact(['owners','species']));
     }
 
     /**
@@ -63,10 +63,10 @@ class PetController extends Controller
         $request->validate($this->validationRules,[
             "fecha_consulta" => ['required','after:yesterday']
         ]);
-        
+
         //Si los campos estan bien, creamos a la mascota
         $petData = $request->except('_token');
-        
+
         if ($request->hasFile('foto')){
             $petData['foto'] = $request->file('foto')->store('uploads','public');
         }else{
@@ -86,7 +86,7 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
-        return view('layouts.mostrarMascota',compact(['pet']));
+        return view('pets.showPet',compact(['pet']));
     }
 
     /**
@@ -100,7 +100,7 @@ class PetController extends Controller
         $owners = Owner::get();
         $owner = $pet->owner;
         $species = Specie::get();
-        return view('layouts.editarMascota',compact(['pet','owners','owner','species']));
+        return view('pets.petEdit',compact(['pet','owners','owner','species']));
     }
 
     /**
@@ -155,7 +155,7 @@ class PetController extends Controller
 
         //Eliminando el registro de la mascota con el ID correspondiente
         Pet::destroy($pet->id);
-        
+
         //Si ya un duenio ya no tiene mascotas lo podemos eliminar
         if (Owner::find($pet->owner_id)->pets->isEmpty()){
             Owner::destroy(Owner::find($pet->owner_id)->id);

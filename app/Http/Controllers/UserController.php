@@ -11,12 +11,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get();
-        return view('layouts.listaUsuarios',compact(['users']));
+        return view('users.usersList',compact(['users']));
     }
 
     public function create()
     {
-        return view('layouts.nuevoUsuario');
+        return view('users.newUser');
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('layouts.editarUsuario');
+        return view('user.userEdit');
     }
 
     public function update()

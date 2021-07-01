@@ -1,4 +1,4 @@
-@section('mascota-form')
+@section('pet-form')
 
 <div>
     <h3>Datos de la mascota</h3>
@@ -17,7 +17,7 @@
                     @if ($pet->foto !== "img/PetAvatarDefault.png")
                     <img src="{{asset('storage').'/'.$pet->foto}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>
                     @else
-                    <img src="{{asset('img/PetAvatarDefault.png')}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>                        
+                    <img src="{{asset('img/PetAvatarDefault.png')}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>
                     @endif
                 @else
                 <img src="{{asset('img/PetAvatarDefault.png')}}" class="img-thumbnail img-fluid" id="fotoPreview" style="height: 10rem;"/>
@@ -101,14 +101,14 @@
                 <select id="specie_id" name="specie_id" class="form-control" required>
                     <option value="0" selected>Seleccione la especie...</option>
                     @foreach ($species as $specie)
-                        @if (isset($pet))   
+                        @if (isset($pet))
                             @if ($errors->any())
                                 @if ($specie->id == old('specie_id'))
                                     <option value="{{ $specie->id }}" selected>{{ $specie->nombre }}</option>
                                     @continue
                                 @endif
-                            @else 
-                                @if ($specie->id === $pet->specie_id) 
+                            @else
+                                @if ($specie->id === $pet->specie_id)
                                     <option value="{{ $specie->id }}" selected>{{ $specie->nombre }}</option>
                                     @continue
                                 @endif
@@ -200,8 +200,8 @@
                                     @continue
 
                                 @endif
-                            @else 
-                                @if ($owner->id === $pet->owner_id) 
+                            @else
+                                @if ($owner->id === $pet->owner_id)
                                     <option value="{{ $owner->id }}" selected>{{ $owner->nombre }}</option>
                                     @continue
                                 @endif

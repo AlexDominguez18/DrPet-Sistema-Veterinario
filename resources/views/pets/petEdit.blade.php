@@ -1,6 +1,6 @@
 @extends('layouts.sbadmin')
-@include('layouts.duenioForm',['owner' => $owner])
-@include('layouts.mascotaForm',['owners' => $owners])
+@include('pets.ownerForm',['owner' => $owner])
+@include('pets.petForm',['owners' => $owners])
 @section('content')
 
 <script>document.title = "Editando mascota | Dr. Pet";</script>
@@ -8,8 +8,8 @@
     <h1 class="h3 mb-0 text-gray-800">Editando el registro de {{ $pet->nombre}}</h1>
 </div>
 <hr>
-@yield('duenio-form', $owner)
+@yield('owner-form', $owner)
 <hr>
-@yield('mascota-form', $owners)
+@yield('pet-form', $owners)
 
 @endsection

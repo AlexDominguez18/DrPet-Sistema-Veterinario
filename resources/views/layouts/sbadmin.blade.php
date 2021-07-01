@@ -48,7 +48,7 @@
                         <span>Usuarios</span>
                     </a>
                 </li>
-                @endif    
+                @endif
             @endauth
 
             <!-- Divider -->
@@ -86,8 +86,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="#">Registrar producto</a>
-                        <a class="collapse-item" href="#">Listar productos</a>
+                        <a class="collapse-item" href="{{ route('product.create') }}">Registrar producto</a>
+                        <a class="collapse-item" href="{{ route('product.index') }}">Listar productos</a>
                     </div>
                 </div>
             </li>
@@ -167,7 +167,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @auth
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>                                    
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                                 @endauth
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('img/usuario.svg')}}">
@@ -245,9 +245,9 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a class="btn btn-primary" href="{{ route('logout') }}" 
+                        <a class="btn btn-primary" href="{{ route('logout') }}"
                             onclick="event.preventDefault();this.closest('form').submit();">Salir</a>
-                    </form>                        
+                    </form>
                 </div>
             </div>
         </div>

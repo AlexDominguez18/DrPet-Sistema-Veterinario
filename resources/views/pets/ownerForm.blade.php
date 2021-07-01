@@ -1,4 +1,4 @@
-@section('duenio-form')
+@section('owner-form')
 
 <script>
     function hideForm(){
@@ -13,12 +13,12 @@
 </script>
 
 <!--Informacion del duenio-->
-<button 
-    type="button" 
-    class="btn btn-info" 
-    data-toggle="tooltip" 
-    data-placement="bottom" 
-    title="Si usted ya ha registrado previamente al dueño, omita el registro" 
+<button
+    type="button"
+    class="btn btn-info"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="Si usted ya ha registrado previamente al dueño, omita el registro"
     id="buttonForm" onclick="hideForm()">
     Omitir registro del dueño
 </button>

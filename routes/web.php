@@ -15,7 +15,7 @@ Route::get('/', function () {
 
 //Inicio
 Route::get('/inicio', function (){
-    return view('layouts.inicio');
+    return view('layouts.index');
 })->middleware('auth');
 
 //Pet routes

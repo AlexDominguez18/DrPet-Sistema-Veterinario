@@ -9,7 +9,7 @@
     </a>
 </div>
 <hr>
-<div class="text-center"> 
+<div class="text-center">
     <img src="{{asset('img/DrPetLogo.png')}}" alt="Logo de Dr. Pet" width="500" height="auto">
 </div>
 @endsection

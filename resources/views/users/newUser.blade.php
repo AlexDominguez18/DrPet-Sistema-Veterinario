@@ -1,5 +1,5 @@
 @extends('layouts.sbadmin')
-@include('layouts.usuarioForm')
+@include('users.userForm')
 @section('content')
 
 <script>document.title = "Crear usuario | Dr. Pet";</script>

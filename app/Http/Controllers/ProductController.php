@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::get();
+        return view('products.productsList', compact(['products']));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.newProduct');
     }
 
     /**
@@ -35,7 +36,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $productData = $request->except('_token');
+        Product::create($productData);
+        return redirect()->route('product.index');
     }
 
     /**
