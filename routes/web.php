@@ -36,4 +36,4 @@ Route::resource('product',ProductController::class)->middleware('auth');
 Route::resource('treatment',TreatmentController::class)->middleware('auth');
 
 // Adoption routes
-Route::resource('adoption', AdoptionController::class);//->middleware('auth');
+Route::resource('adoption', AdoptionController::class)->middleware('auth');

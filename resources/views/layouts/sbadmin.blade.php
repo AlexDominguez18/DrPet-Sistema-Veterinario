@@ -92,6 +92,23 @@
                 </div>
             </li>
 
+            <!-- Nav Item - Products-Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTreatments"
+                    aria-expanded="true" aria-controls="collapseTreatments">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>Tratamientos</span>
+                </a>
+                <div id="collapseTreatments" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="{{ route('treatment.create') }}">Registrar tratamiento</a>
+                        <a class="collapse-item" href="{{ route('treatment.index') }}">Listar tratamientos</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Adoptions-Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('adoption.index')}}"  data-target="#collapseAdoptions"

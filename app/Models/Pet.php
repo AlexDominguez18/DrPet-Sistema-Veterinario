@@ -16,4 +16,9 @@ class Pet extends Model
         return $this->belongsTo(Owner::class);
     }
 
+    public function treatments()
+    {
+        return $this->belongsToMany(Treatment::class);
+    }
+
 }

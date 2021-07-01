@@ -32,11 +32,10 @@ class OwnerController extends Controller
         $request->validate($this->validationRules,[
             "correo" => ['required','email:rfc','unique:App\Models\Owner,correo']
         ]);
-
         //Si los datos son correctos creamos al duenio
         Owner::create($request->except(['_token','pet_id']));
 
-        if($request->pet_id != null){
+        if($request->pet_id != 0){
             $pet = Pet::findOrFail($request->pet_id);
             return redirect()->route('pet.edit',$pet);
         }

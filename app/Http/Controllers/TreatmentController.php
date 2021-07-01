@@ -14,7 +14,9 @@ class TreatmentController extends Controller
      */
     public function index()
     {
-        //
+        $treatments = Treatment::get();
+
+        return view('treatments.treatmentList',compact(['treatments']));
     }
 
     /**
@@ -24,7 +26,7 @@ class TreatmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('treatments.newTreatment');
     }
 
     /**
