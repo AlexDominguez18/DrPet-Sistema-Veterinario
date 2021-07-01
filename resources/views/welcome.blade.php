@@ -11,13 +11,13 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-        <!-- Vendor CSS Files -->
-        <link href="{{asset('vendor/landing/bootstrap/css/bootstrap.min.css ')}}" rel="stylesheet">
-        <link href="{{asset('vendor/landing/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-        <link href="{{asset('vendor/landing/aos/aos.css')}}" rel="stylesheet">
-        <link href="{{asset('vendor/landing/remixicon/remixicon.css')}}" rel="stylesheet">
-        <link href="{{asset('vendor/landing/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
-        <link href="{{asset('vendor/landing/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+        <!-- CSS Files -->
+        <link href="{{asset('landing/bootstrap/css/bootstrap.min.css ')}}" rel="stylesheet">
+        <link href="{{asset('landing/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+        <link href="{{asset('landing/aos/aos.css')}}" rel="stylesheet">
+        <link href="{{asset('landing/remixicon/remixicon.css')}}" rel="stylesheet">
+        <link href="{{asset('landing/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+        <link href="{{asset('landing/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
 
          <!-- Template Main CSS File -->
          <link href="{{asset('css/style.css')}}" rel="stylesheet">
@@ -326,14 +326,14 @@
         
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-        <!-- Vendor JS Files -->
-        <script src="{{asset('vendor/landing/bootstrap/js/bootstrap.bundle.js')}}"></script>
-        <script src="{{asset('vendor/landing/aos/aos.js')}}"></script>
-        <script src="{{asset('vendor/landing/php-email-form/validate.js')}}"></script>
-        <script src="{{asset('vendor/landing/swiper/swiper-bundle.min.js')}}"></script>
-        <script src="{{asset('vendor/landing/purecounter/purecounter.js')}}"></script>
-        <script src="{{asset('vendor/landing/isotope-layout/isotope.pkgd.min.js')}}"></script>
-        <script src="{{asset('vendor/landing/glightbox/js/glightbox.min.js')}}"></script>
+        <!-- JS Files -->
+        <script src="{{asset('landing/bootstrap/js/bootstrap.bundle.js')}}"></script>
+        <script src="{{asset('landing/aos/aos.js')}}"></script>
+        <script src="{{asset('landing/php-email-form/validate.js')}}"></script>
+        <script src="{{asset('landing/swiper/swiper-bundle.min.js')}}"></script>
+        <script src="{{asset('landing/purecounter/purecounter.js')}}"></script>
+        <script src="{{asset('landing/isotope-layout/isotope.pkgd.min.js')}}"></script>
+        <script src="{{asset('landing/glightbox/js/glightbox.min.js')}}"></script>
 
         <!-- Template Main JS File -->
         <script src="{{asset('js/main.js')}}"></script>
