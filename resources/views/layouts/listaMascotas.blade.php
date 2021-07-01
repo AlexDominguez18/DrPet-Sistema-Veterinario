@@ -41,7 +41,11 @@
                     </td>
                     <td>{{ $pet->raza }}</td>
                     <td>{{ $pet->color }}</td>
-                    <td>{{ $pet->especie }}</td>
+                    @foreach ($species as $specie)
+                        @if ($specie->id === $pet->specie_id)
+                            <td>{{ $specie->nombre }}</td>
+                        @endif    
+                    @endforeach
                     <td>{{ $pet->sexo }}</td>
                     <td>{{ $pet->owner->nombre }}</td>
                     <td class="text-center">
@@ -85,18 +89,20 @@
                 </button>
             </div>
             <div class="modal-body">Ingrese la contraseña de su usuario para borrarlo.
-                <form method="POST" action="{{ route('pet.destroy',$pet) }}">
-                    @csrf
-                    @method('DELETE')
-                    <input id="password" class="form-control" type="password" name="password" required autofocus />
-                    @foreach ($errors->all() as $error)
-                        <p class="text-danger">{{ $error }}</p> 
-                    @endforeach
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <button class="btn btn-secondary" type="submit">Confirmar</button>                     
-                    </div>
-                </form>
+                @if(isset($pet))
+                    <form method="POST" action="{{ route('pet.destroy',$pet) }}">
+                        @csrf
+                        @method('DELETE')
+                        <input id="password" class="form-control" type="password" name="password" required autofocus />
+                        @foreach ($errors->all() as $error)
+                            <p class="text-danger">{{ $error }}</p> 
+                        @endforeach
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-secondary" type="submit">Confirmar</button>                     
+                        </div>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

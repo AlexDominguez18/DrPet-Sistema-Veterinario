@@ -94,27 +94,41 @@
             </div>
         </div>
         <div class="form-group row">
+            <div class="col-sm-1 text-center">
+                <label for="specie_id">Especie:</label>
+            </div>
             <div class="col-md-4">
-                <input
-                    type="text"
-                    class="form-control @error('especie') is-invalid @enderror"
-                    name="especie"
-                    id="especie"
-                    placeholder="Especie..."
-                    @if (isset($pet))
-                    value="{{ $pet->especie}}"
-                    @else
-                    value="{{old('especie')}}"
-                    @endif
-                required>
-                @error('especie')
-                <div class="invalid-feedback">{{$message}}</div>
+                <select id="specie_id" name="specie_id" class="form-control" required>
+                    <option value="0" selected>Seleccione la especie...</option>
+                    @foreach ($species as $specie)
+                        @if (isset($pet))   
+                            @if ($errors->any())
+                                @if ($specie->id == old('specie_id'))
+                                    <option value="{{ $specie->id }}" selected>{{ $specie->nombre }}</option>
+                                    @continue
+                                @endif
+                            @else 
+                                @if ($specie->id === $pet->specie_id) 
+                                    <option value="{{ $specie->id }}" selected>{{ $specie->nombre }}</option>
+                                    @continue
+                                @endif
+                            @endif
+                        @else
+                            @if ($specie->id === old('specie_id'))
+                                <option value="{{ $specie->id }}" selected>{{ $specie->nombre }}</option>
+                            @endif
+                        @endif
+                        <option value="{{ $specie->id }}">{{ $specie->nombre }}</option>
+                    @endforeach
+                </select>
+                @error('specie_id')
+                <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
             <div class="col-sm-1 text-center">
                 <label for="fecha_consulta">Consulta:</label>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <input
                     type="date"
                     class="form-control @error('fecha_consulta') is-invalid @enderror"
@@ -136,7 +150,7 @@
             <textarea
                 class="form-control @error('observaciones') is-invalid @enderror"
                 name="observaciones"
-                id="observaciones"required>@if (isset($pet)){{ $pet->observaciones }}@endif</textarea>
+                id="observaciones"required>@if (isset($pet)){{ $pet->observaciones }}@else{{ old('observaciones') }}@endif</textarea>
                 @error('observaciones')
                 <div class="invalid-feedback">{{$message}}</div>
                 @enderror
@@ -176,16 +190,27 @@
             </div>
             <legend class="col-form-label col-sm-1 pt-0"><strong>Dueño:</strong></legend>
             <div class="col-md-4">
-                <select id="owner_id" name="owner_id" class="form-select form-select-lg mb-3 align-self-cente" required>
+                <select id="owner_id" name="owner_id" class="form-control" required>
                     <option value="0" selected>Seleccione al dueño de la mascota...</option>
                     @foreach ($owners as $owner)
                         @if (isset($pet))
-                            @if ($owner->id === $pet->owner->id)
-                                <option value="{{ $owner->id }}" 
-                                    @if(old('owner_id')==$owner->id)selected @endif>{{ $pet->owner->nombre }}</option>
-                                @continue
+                            @if ($errors->any())
+                                @if ($owner->id == old('owner_id'))
+                                    <option value="{{ $owner->id }}" selected>{{ $owner->nombre }}</option>
+                                    @continue
+
+                                @endif
+                            @else 
+                                @if ($owner->id === $pet->owner_id) 
+                                    <option value="{{ $owner->id }}" selected>{{ $owner->nombre }}</option>
+                                    @continue
+                                @endif
                             @endif
                         @else
+                            @if ($owner->id == old('owner_id'))
+                                <option value="{{ $owner->id }}" selected>{{ $owner->nombre }}</option>
+                                @continue
+                            @endif
                         @endif
                         <option value="{{ $owner->id }}">{{ $owner->nombre }}</option>
                     @endforeach

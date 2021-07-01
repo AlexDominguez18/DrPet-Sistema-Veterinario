@@ -16,7 +16,6 @@ class OwnerController extends Controller
         $this->validationRules = [
             "nombre" => ['required','string','min:5','max:100'],
             "telefono" => ['required','digits:10'],
-            "correo" => ['required','email:rfc','unique:App\Models\Owner,correo'],
             "direccion" => ['required','string','min:5','max:50']
         ];
     }
@@ -30,7 +29,9 @@ class OwnerController extends Controller
     public function store(Request $request)
     {
         //Validando los datos del formulario
-        $request->validate($this->validationRules);
+        $request->validate($this->validationRules,[
+            "correo" => ['required','email:rfc','unique:App\Models\Owner,correo']
+        ]);
         
         //Si los datos son correctos creamos al duenio
         Owner::create($request->all());
@@ -59,28 +60,22 @@ class OwnerController extends Controller
      */
     public function update(Request $request, Owner $owner, Pet $pet)
     {
+        //Validando la nueva informacion del duenio
+        $request->validate($this->validationRules,[
+            "correo" => ['required','email:rfc'],
+        ]);
+        //Obteniendo la nueva informacion del usuario
         $ownerData = $request->except(['_token','_method']);
+        //Obteniendo el ID del usuario a editar
         $id = $owner->id;
-        
+        //Actualizando informacion del duenio
         Owner::where('id','=',$id)->update($ownerData);
+        //Recuperando informacion del duenio actualizada
         $owner = Owner::findOrFail($id);
-        
-        $owners = Owner::get();
-
+        //Recuperando la mascota con la que se estaba trabajando en la pagina
         $id = $pet->id;
         $pet = Pet::findOrFail($id);
 
         return redirect()->route('pet.edit',$pet);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Owner  $owner
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Owner $owner)
-    {
-        //
     }
 }

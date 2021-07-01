@@ -19,7 +19,7 @@ class CreatePetsTable extends Migration
             $table->string('nombre',30);
             $table->string('raza',50);
             $table->string('color', 25);
-            $table->string('especie',30);
+            $table->foreignId('specie_id');
             $table->longText('observaciones');
             $table->date('fecha_consulta');
             $table->char('sexo', 1);

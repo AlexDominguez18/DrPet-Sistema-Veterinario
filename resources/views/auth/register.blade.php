@@ -46,6 +46,19 @@
                 </div>
             @endif
 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="admin" id="admin" value="1" checked>
+                <label class="form-check-label" for="admin">
+                  Administrador
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="admin" id="empleado" value="0">
+                <label class="form-check-label" for="empleado">
+                  Empleado
+                </label>
+              </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}

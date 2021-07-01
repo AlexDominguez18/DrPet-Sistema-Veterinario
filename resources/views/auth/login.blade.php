@@ -2,9 +2,6 @@
 <link rel="icon" href="{{asset('img/DrPetLogo.png')}}" type="image">
 
 <x-guest-layout>
-
-        <x-jet-validation-errors class="mb-4" />
-
 <div class="container">
  <!-- Outer Row --> 
  <div class="row justify-content-center">
@@ -43,6 +40,16 @@
                                             id="password" placeholder="Contraseña..." required autocomplete="current-password" >
                                     </div>
 
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>    
+                                        </div>
+                                    @endif
+
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" id="remember_me" name="remember">
@@ -71,7 +78,6 @@
     </div>
 </div>
 </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -81,7 +87,4 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-
-
-
 </x-guest-layout>

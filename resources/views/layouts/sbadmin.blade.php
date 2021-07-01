@@ -28,7 +28,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/inicio')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-paw" style="color:#fb6767"></i>
                 </div>
@@ -128,10 +128,6 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
-                    
-                    @yield('search-nav')
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -168,9 +164,6 @@
                                 @auth
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>                                    
                                 @endauth
-                                @guest
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
-                                @endguest
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('img/usuario.svg')}}">
                             </a>
