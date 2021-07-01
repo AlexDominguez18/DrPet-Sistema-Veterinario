@@ -1,9 +1,9 @@
-<script>document.title="Login | Dr. Pet"</script>        
+<script>document.title="Login | Dr. Pet"</script>
 <link rel="icon" href="{{asset('img/DrPetLogo.png')}}" type="image">
 
 <x-guest-layout>
 <div class="container">
- <!-- Outer Row --> 
+ <!-- Outer Row -->
  <div class="row justify-content-center">
     <div class="col-xl-10 col-lg-12 col-md-9">
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -46,7 +46,7 @@
                                                 @foreach ($errors->all() as $error)
                                                     <li>{{ $error }}</li>
                                                 @endforeach
-                                            </ul>    
+                                            </ul>
                                         </div>
                                     @endif
 
@@ -58,21 +58,21 @@
                                     </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Inicar sesión</button>
-                                        <hr>
-                                        @if (Route::has('password.request'))
-                                            <div class="text-center">    
+                                        {{-- <hr> --}}
+                                        {{-- @if (Route::has('password.request'))
+                                            <div class="text-center">
                                                 <a class="small" href="{{ route('password.request') }}">
                                                     {{ __('¿Olvidaste tu contraseña?') }}
                                                 </a>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                 </form>
                                 <hr>
                         </div>
                     </div>
                     </div>
                 </div>
-                        
+
             </div>
         </div>
     </div>

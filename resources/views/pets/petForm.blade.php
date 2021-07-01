@@ -191,7 +191,11 @@
             <legend class="col-form-label col-sm-1 pt-0"><strong>Dueño:</strong></legend>
             <div class="col-md-4">
                 <select id="owner_id" name="owner_id" class="form-control" required>
-                    <option value="0" selected>Seleccione al dueño de la mascota...</option>
+                    @if (isset($owner))
+                    <option disabled selected> Elija dueño</option>
+                    @else
+                    <option value="0">Sin dueño (adoptable)</option>
+                    @endif
                     @foreach ($owners as $owner)
                         @if (isset($pet))
                             @if ($errors->any())
@@ -220,8 +224,6 @@
                 @enderror
             </div>
         </div>
-        <!--Adoptable falso porque es mascota con duenio-->
-        <input type="hidden" value="0" name="adoptable" id="adoptable" default>
         <button type="submit" class="btn btn-success btn-icon-split">
             <span class="icon"><i class="fas fa-save"></i></span>
             <span class="text">Guardar</span>

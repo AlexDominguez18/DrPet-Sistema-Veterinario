@@ -92,7 +92,7 @@ class ProductController extends Controller
 
         //Actualizando la informacion de la mascota
         Product::where('id','=',$product->id)->update($productData);
-        return redirect()->route('product.edit',$product);
+        return redirect()->route('product.index',$product);
     }
 
     /**

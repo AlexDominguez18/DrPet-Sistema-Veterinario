@@ -30,9 +30,9 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->nombre }}</td>
-                    <td>{{ $product->precio_compra }}</td>
-                    <td>{{ $product->precio_venta }}</td>
-                    <td>{{ $product->existencias }}</td>
+                    <td>$ {{ $product->precio_compra }} mxn</td>
+                    <td>$ {{ $product->precio_venta }} mxn</td>
+                    <td>{{ $product->existencias }} unidades</td>
                     <td class="text-center">
                         <!--Boton de editar-->
                         <a class="btn btn-circle btn-warning" href="{{ route('product.edit', $product) }}">

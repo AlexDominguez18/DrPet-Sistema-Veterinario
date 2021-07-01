@@ -24,7 +24,7 @@ class PetController extends Controller
             "observaciones" => ['required','min:5'],
             "sexo" => ['required'],
             "foto" => ['image','max:5120'],
-            "owner_id" => ['exists:App\Models\Owner,id']
+            "owner_id" => ['min:0']
         ];
     }
     /**
@@ -59,6 +59,7 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         //Validando los campos llenados
         $request->validate($this->validationRules,[
             "fecha_consulta" => ['required','after:yesterday']
@@ -72,7 +73,13 @@ class PetController extends Controller
         }else{
             $petData['foto'] = 'img/PetAvatarDefault.png';
         }
-
+        // Revisando si es adoptable o no
+        if($request->owner_id == 0){
+            $petData['adoptable'] = 1;
+            $petData['owner_id'] = null;
+        }else{
+            $petData['adoptable'] = 0;
+        }
         Pet::insert($petData);
 
         return redirect()->route('pet.index');
@@ -127,13 +134,13 @@ class PetController extends Controller
         //Actualizando la informacion de la mascota
         Pet::where('id','=',$id)->update($petData);
         //Si un duenio ya no tiene mascotas lo podemos eliminar
-        if (Owner::find($pet->owner_id)->pets->isEmpty()){
-            Owner::destroy(Owner::find($pet->owner_id)->id);
+        if($request->owner_id != null){
+            if (Owner::find($request->owner_id)->pets->isEmpty()){
+                Owner::destroy(Owner::find($request->owner_id)->id);
+            }
         }
-        //Recuperando a la mascota para mostrar su informacion actualizada
-        $pet = Pet::findOrFail($id);
 
-        return redirect()->route('pet.edit',$pet);
+        return redirect()->route('pet.index');
     }
 
     /**
@@ -157,10 +164,11 @@ class PetController extends Controller
         Pet::destroy($pet->id);
 
         //Si ya un duenio ya no tiene mascotas lo podemos eliminar
-        if (Owner::find($pet->owner_id)->pets->isEmpty()){
-            Owner::destroy(Owner::find($pet->owner_id)->id);
+        if($request->owner_id != null){
+            if (Owner::find($request->owner_id)->pets->isEmpty()){
+                Owner::destroy(Owner::find($request->owner_id)->id);
+            }
         }
-
         return redirect()->route('pet.index');
     }
 }

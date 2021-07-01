@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Adoption extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['pet_id'];
 }

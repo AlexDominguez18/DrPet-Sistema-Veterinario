@@ -29,7 +29,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/inicio')}}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-paw" style="color:#fb6767"></i>
                 </div>
@@ -94,19 +94,11 @@
 
             <!-- Nav Item - Adoptions-Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdoptions"
+                <a class="nav-link" href="{{ route('adoption.index')}}"  data-target="#collapseAdoptions"
                     aria-expanded="true" aria-controls="collapsAdoptions">
                     <i class="fas fa-hand-holding-heart"></i>
                     <span>Adopciones</span>
                 </a>
-                <div id="collapseAdoptions" class="collapse" aria-labelledby="headingAdoptions"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="#">Registrar animal</a>
-                        <a class="collapse-item" href="#">Listar animales</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->
@@ -175,14 +167,14 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Configuración
-                                </a>
+                                </a> --}}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -15,7 +15,6 @@
 
 <!--Formulario del duenio-->
 <div id="ownerForm">
-    <hr>
     @if (isset($owner))
     <form class="form" method="POST" action="{{ url('/owner/'.$owner->id.'/'.$pet->id) }}">
         @method('PATCH')
@@ -25,6 +24,12 @@
         <h3>Datos del dueño</h3>
         <hr>
         @csrf
+        @if (isset($pet))
+        <input type="hidden" name="pet_id" value="{{ $pet->id }}">
+        @else
+        <input type="hidden" name="pet_id" value="0">
+        @endif
+
         <div class="form-group row">
             <div class="col-md-8">
                 <input

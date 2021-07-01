@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Adoption;
 use App\Models\Pet;
+use App\Models\Specie;
 use Illuminate\Http\Request;
 
 class AdoptionController extends Controller
@@ -15,7 +16,10 @@ class AdoptionController extends Controller
      */
     public function index()
     {
-        return Pet::where('adoptable', true)->get();
+        $pets = Pet::where('adoptable', true)->get();
+        $species = Specie::get();
+
+        return view('adoptions.adoptionList', compact(['pets','species']));
     }
 
     /**
@@ -25,7 +29,10 @@ class AdoptionController extends Controller
      */
     public function create()
     {
-        // I think it will not be used
+        $adoptable = true;
+        $species = Specie::get();
+
+        return view('adoptions.newAdoption', compact(['adoptable','species']));
     }
 
     /**
@@ -36,10 +43,11 @@ class AdoptionController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+        Adoption::create(['pet_id'=>$request->pet_id]);
+        Pet::where('id', $request->pet_id)->update(['adoptable' => false]);
         $pet_id = $request->pet_id;
-        Adoption::create($pet_id);
-        Pet::where('id', $pet_id)->update(['adoptable' => false]);
-        return Pet::where('id', $pet_id);
+        return redirect()->route('pet.edit',$pet_id);
     }
 
     /**
@@ -50,7 +58,7 @@ class AdoptionController extends Controller
      */
     public function show(Adoption $adoption)
     {
-        return $adoption;
+        //
     }
 
     /**
