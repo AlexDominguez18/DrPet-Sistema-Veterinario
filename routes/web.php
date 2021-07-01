@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PetController;
-use App\Models\Owner;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +22,8 @@ Route::get('/inicio', function (){
 Route::resource('pet', PetController::class)->middleware('auth');
 
 //Owner routes
-Route::post('/owner', [OwnerController::class,'store']);
+Route::post('/owner', [OwnerController::class,'store'])->middleware('auth');
+Route::patch('/owner/{owner}/{pet}',[OwnerController::class,'update'])->middleware('auth');
 
-Route::patch('/owner/{owner}/{pet}',[OwnerController::class,'update']);
+//users routes
+Route::resource('user',UserController::class)->middleware('admin','auth');

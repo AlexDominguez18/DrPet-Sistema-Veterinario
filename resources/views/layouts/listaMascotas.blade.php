@@ -1,13 +1,16 @@
 @extends('layouts.sbadmin')
 @section('content')
 
-<script src="{{asset('libs/jquery/jquery.min.js')}}"></script>
+<script>
+    document.title = "Mascotas | Dr. Pet";
+</script>
 
+<script src="{{asset('libs/jquery/jquery.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('libs/datatables/dataTables.bootstrap4.min.css') }}">
 
 <div class="card-shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Lista de mascotas</h6>
+        <h3 class="m-0 font-weight-bold text-primary">Lista de mascotas</h3>
     </div>
 <div class="card-body">
     <div class="table-responsive">

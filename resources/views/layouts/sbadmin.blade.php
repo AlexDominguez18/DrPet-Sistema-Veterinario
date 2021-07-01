@@ -15,6 +15,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     <link href="{{asset('libs/sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('libs/datatables/dataTables.bootstrap4.min.css') }}">
 </head>
@@ -38,13 +39,17 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ url('/inicio') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+            <!-- Nav Item - Dashboard  Solo los admins pueden-->
+            @auth
+                @if (Auth::user()->admin === 1)
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('/user') }}">
+                        <i class="fas fa-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                @endif    
+            @endauth
 
             <!-- Divider -->
             <hr class="sidebar-divider">

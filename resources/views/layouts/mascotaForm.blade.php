@@ -172,7 +172,7 @@
                     <label class="form-check-label" for="sexo">
                         Macho
                     </label>
-                    </div>
+                </div>
                 <div class="form-check">
                     @if (isset($pet))
                         @if ($pet->sexo === 'H')
