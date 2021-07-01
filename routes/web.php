@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\ProductController;
@@ -33,3 +34,6 @@ Route::resource('product',ProductController::class)->middleware('auth');
 
 //Traetments routes
 Route::resource('treatment',TreatmentController::class)->middleware('auth');
+
+// Adoption routes
+Route::resource('adoption', AdoptionController::class);//->middleware('auth');
