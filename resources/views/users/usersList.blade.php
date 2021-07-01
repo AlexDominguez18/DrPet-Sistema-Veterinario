@@ -36,7 +36,7 @@
             <tbody>
                 @foreach ($users as $user)
                     @auth
-                        @if (Auth::user()->id !== $user->id)
+                        @if ($user->admin === 0)
                         <tr>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
@@ -48,13 +48,38 @@
                             @endif
                             <td class="text-center">
                                 <!--Boton de editar-->
-                                <a class="btn btn-circle btn-warning" href="{{ url('/user'.'/'.$user->id.'/edit') }}">
+                                <a class="btn btn-circle btn-warning" href="{{ route('user.edit', $user) }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <!--Boton de eliminar-->
-                                <a class="btn btn-circle btn-danger" href="#" id="deleteUser" onclick="confirm('¿Seguro que quiere eliminar a {{$user->name}}?')">
+                                <a class="btn btn-circle btn-danger" href="#" id="deleteUser" data-toggle="modal" data-target="#deleteUserModal{{ $user->id}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
+                                <!-- Eliminar usuario Modal-->
+                                <div class="modal fade" id="deleteUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quiere eliminar a {{ $user->name }}?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Presione "Eliminar" para confirmar.
+                                                @if(isset($user))
+                                                    <form method="POST" action="{{ route('user.destroy',$user) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                            <button class="btn btn-secondary" type="submit">Eliminar</button>                     
+                                                        </div>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         @endif

@@ -222,9 +222,9 @@
         </div>
         <!--Adoptable falso porque es mascota con duenio-->
         <input type="hidden" value="0" name="adoptable" id="adoptable" default>
-        <button type="submit" class="btn btn-success">
-            <i class="fas fa-save"></i>
-            Guardar
+        <button type="submit" class="btn btn-success btn-icon-split">
+            <span class="icon"><i class="fas fa-save"></i></span>
+            <span class="text">Guardar</span>
         </button>
     </form>
 </div>

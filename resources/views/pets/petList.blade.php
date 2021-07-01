@@ -1,9 +1,7 @@
 @extends('layouts.sbadmin')
 @section('content')
 
-<script>
-    document.title = "Mascotas | Dr. Pet";
-</script>
+<script>document.title = "Mascotas | Dr. Pet";</script>
 
 <script src="{{asset('libs/jquery/jquery.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('libs/datatables/dataTables.bootstrap4.min.css') }}">
@@ -57,9 +55,38 @@
                             <i class="fas fa-edit"></i>
                         </a>
                         <!--Boton de eliminar-->
-                        <a class="btn btn-circle btn-danger" href="#" data-toggle="modal" data-target="#deleteModal">
+                        <a class="btn btn-circle btn-danger" href="#" data-toggle="modal" data-target="#deletePetModal{{$pet->id}}">
                             <i class="fas fa-trash"></i>
                         </a>
+                        <!--Modal para borrar registro-->
+                        <div class="modal fade" id="deletePetModal{{$pet->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quiere eliminar a {{$pet->nombre}}?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Ingrese la contraseña de su usuario para borrarlo.
+                                        @if(isset($pet))
+                                            <form method="POST" action="{{ route('pet.destroy',$pet) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input id="password" class="form-control" type="password" name="password" required autofocus />
+                                                @foreach ($errors->all() as $error)
+                                                    <p class="text-danger">{{ $error }}</p> 
+                                                @endforeach
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <button class="btn btn-secondary" type="submit">Confirmar</button>                     
+                                                </div>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
@@ -79,36 +106,6 @@
         </table>
     </div>
 </div>
-</div>
-
-<!--Modal para borrar registro-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quiere eliminar el registro?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Ingrese la contraseña de su usuario para borrarlo.
-                @if(isset($pet))
-                    <form method="POST" action="{{ route('pet.destroy',$pet) }}">
-                        @csrf
-                        @method('DELETE')
-                        <input id="password" class="form-control" type="password" name="password" required autofocus />
-                        @foreach ($errors->all() as $error)
-                            <p class="text-danger">{{ $error }}</p> 
-                        @endforeach
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                            <button class="btn btn-secondary" type="submit">Confirmar</button>                     
-                        </div>
-                    </form>
-                @endif
-            </div>
-        </div>
-    </div>
 </div>
 
 @if($errors->any())

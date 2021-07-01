@@ -1,27 +1,17 @@
 @section('owner-form')
 
+<!--Script para mostrar u ocultar el formulario del duenio-->
 <script>
     function hideForm(){
         if (document.getElementById('ownerForm').style.display === "none"){
             document.getElementById('ownerForm').style.display="block";
-            document.getElementById('buttonForm').textContent="Omitir registro";
+            document.getElementById('btnTextOwner').textContent="Omitir registro del dueño";
         }else{
             document.getElementById('ownerForm').style.display="none";
-            document.getElementById('buttonForm').textContent="Mostrar registro";
+            document.getElementById('btnTextOwner').textContent="Mostrar registro del dueño";
         }
     }
 </script>
-
-<!--Informacion del duenio-->
-<button
-    type="button"
-    class="btn btn-info"
-    data-toggle="tooltip"
-    data-placement="bottom"
-    title="Si usted ya ha registrado previamente al dueño, omita el registro"
-    id="buttonForm" onclick="hideForm()">
-    Omitir registro del dueño
-</button>
 
 <!--Formulario del duenio-->
 <div id="ownerForm">
@@ -108,10 +98,28 @@
             </div>
         </div>
         <hr>
-        <button type="submit" class="btn btn-success">
-            <i class="fas fa-save"></i>
-            Guardar
-        </button>
+        <div class="btn-toolbar mb-3">
+            <div class="btn-group mr-2">
+                <button type="submit" class="btn btn-success btn-icon-split">
+                    <span class="icon"><i class="fas fa-save"></i></span>
+                    <span class="text">Guardar</span>
+                </button>
+            </div>
+        </div>
     </form>
+</div>
+
+<!--Informacion del duenio-->
+<div class="btn-group me-2">
+    <button
+        type="button"
+        class="btn btn-icon-split btn-info"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Si usted ya ha registrado previamente al dueño, omita el registro"
+        id="buttonForm" onclick="hideForm()">
+        <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+        <span id="btnTextOwner" class="text">Omitir registro del dueño</span>
+    </button>
 </div>
 @endsection
