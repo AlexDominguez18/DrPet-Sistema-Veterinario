@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pet;
 use Illuminate\Database\Seeder;
 
-class AdoptionSeeder extends Seeder
+class OwnersTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +13,6 @@ class AdoptionSeeder extends Seeder
      */
     public function run()
     {
-        Pet::factory()
-            ->count(30)
-            ->on_adoption()
-            ->create();
+        \App\Models\Owner::factory(10)->create();
     }
 }

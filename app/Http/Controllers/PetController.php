@@ -172,9 +172,9 @@ class PetController extends Controller
         Pet::destroy($pet->id);
 
         //Si ya un duenio ya no tiene mascotas lo podemos eliminar
-        if($request->owner_id != null){
-            if (Owner::find($request->owner_id)->pets->isEmpty()){
-                Owner::destroy(Owner::find($request->owner_id)->id);
+        if($pet->owner_id != 0){
+            if (Owner::find($pet->owner_id)->pets->isEmpty()){
+                Owner::destroy(Owner::find($pet->owner_id)->id);
             }
         }
         return redirect()->route('pet.index')->with('message','¡Mascota eliminada con éxito!');
