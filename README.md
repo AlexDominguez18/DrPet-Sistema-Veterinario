@@ -31,7 +31,7 @@ Alejandro Domínguez
 3. Instalar dependiencias mediante composer: `composer install`
 4. Crear archivo de variables de entorno: `cp .env.example .env`
 5. Crear llave: `php artisan key:generate`
-6. Configurar nombre de base de datos en .env'
+6. Configurar nombre de base de datos en .env `(nombre recomendado: drpet_sspis_app)`
 7. Configurar el apartado de correo en .env para poner sus datos de mailtrap o cualquier otro servicio que use.
 8. Ejecutar las migraciones junto con el seeder para generar el usuario administrador y llenar las tablas necesarias: `php artisan migrate --seed`. 
 9. Linkear storage con el public, para mostrar imágenes: `php artisan storage:link`
