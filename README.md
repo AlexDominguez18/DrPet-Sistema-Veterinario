@@ -41,6 +41,13 @@ Alejandro Domínguez
 - npm install.
 - npm run dev.
 
+## Para iniciar sesión con el usuario admin
+
+Para poder a comenzar a utilizar el sistema, tendrá que logearse con las siguientes credenciales
+- Correo: admin@drpet.com
+- Contraseña: 1823admin
+
+
 ## Extra
 
 - Si desea tener algunos dueños de prueba, existe una factory para ello. Ejecute el comando: `php artisan db:seed --class=OwnersTestSeeder`
