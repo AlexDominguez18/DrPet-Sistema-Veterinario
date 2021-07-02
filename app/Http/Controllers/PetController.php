@@ -34,7 +34,8 @@ class PetController extends Controller
      */
     public function index()
     {
-        $pets = Pet::get();
+        //Eager loading
+        $pets = Pet::with('owner:id,nombre')->get();
         $species = Specie::get();
         return view('pets.petList',compact(['pets','species']));
     }
@@ -136,10 +137,13 @@ class PetController extends Controller
         //Actualizando la informacion de la mascota
         Pet::where('id','=',$id)->update($petData);
         //Si un duenio ya no tiene mascotas lo podemos eliminar
-        if($request->owner_id != null){
+        if($request->owner_id != 0){
             if (Owner::find($request->owner_id)->pets->isEmpty()){
                 Owner::destroy(Owner::find($request->owner_id)->id);
             }
+        }else{
+            //Si se deja adoptable entonces cambiamos su bandera
+            Pet::where('id', $pet->id)->update(['adoptable' => true]);
         }
 
         return redirect()->route('pet.index');

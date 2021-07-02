@@ -2,14 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PasswordMailable;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+    protected $listen = [
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ]
+    ];
+
+    public function __construct()
+    {
+        $this->middleware('admin')->except('index');
+    }
+
     public function index()
     {
+        if (!Gate::allows('admin-users')){
+            return view('layouts.404NotFound');
+        }
         $users = User::get();
         return view('users.usersList',compact(['users']));
     }
@@ -31,7 +50,12 @@ class UserController extends Controller
         $userData = $request->except('_token');
         $userData['password'] = Hash::make($request->password);
 
-        User::create($userData);
+        //Eviamos correo para que verifiquen sus correos los usuarios
+        event(new Registered($user = User::create($userData)));
+
+        //Enviar correo al usuario con su informacion para logearse
+        $mail = new PasswordMailable($request->all());
+        Mail::to($request->email)->send($mail);
 
         return redirect()->route('user.index');
     }
@@ -61,6 +85,9 @@ class UserController extends Controller
                 "password_confirmation" => ['nullable','min:8']
             ]);
             $userToUpdate['password'] = Hash::make($request->password);
+            //Enviar correo al usuario con su informacion actualizada de contrasenia y/o correo
+            $mail = new PasswordMailable($request->all());
+            Mail::to($request->email)->send($mail);
         }
 
         //Guardamos los cambios

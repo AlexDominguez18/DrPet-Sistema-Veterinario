@@ -30,7 +30,7 @@ class OwnerController extends Controller
     {
         //Validando los datos del formulario
         $request->validate($this->validationRules,[
-            "correo" => ['required','email:rfc','unique:App\Models\Owner,correo']
+            "correo" => ['required', 'string', 'email:rfc', 'max:255','unique:App\Models\Owner,correo']
         ]);
         //Si los datos son correctos creamos al duenio
         Owner::create($request->except(['_token','pet_id']));
@@ -40,17 +40,6 @@ class OwnerController extends Controller
             return redirect()->route('pet.edit',$pet);
         }
         return redirect()->route('pet.create');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Owner  $owner
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Owner $owner)
-    {
-        //
     }
 
     /**
@@ -64,7 +53,7 @@ class OwnerController extends Controller
     {
         //Validando la nueva informacion del duenio
         $request->validate($this->validationRules,[
-            "correo" => ['required','email:rfc'],
+            "correo" => ['required', 'string', 'email', 'max:255'],
         ]);
         //Obteniendo la nueva informacion del usuario
         $ownerData = $request->except(['_token','_method', 'pet_id']);

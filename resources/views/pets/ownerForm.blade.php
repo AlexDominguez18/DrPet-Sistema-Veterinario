@@ -69,7 +69,7 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <input
-                    type="text"
+                    type="email"
                     class="form-control @error('correo') is-invalid @enderror"
                     id="correo"
                     name="correo"
@@ -81,7 +81,7 @@
                     @endif
                 required>
                 @error('correo')
-                <div class="invalid-feedback">{{$message}}</div>
+                <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
             <div class="col-md-6">

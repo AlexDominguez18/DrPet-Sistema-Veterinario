@@ -48,13 +48,13 @@
                             value="{{old('dosis')}}"
                             @endif
                         required>
+                        @error('dosis')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
                     </div>
                     <div class="input-group-prepend">
                         <div class="input-group-text">ml/mg</div>
                     </div>
-                    @error('dosis')
-                    <div class="invalid-feedback">{{$message}}</div>
-                    @enderror
                 </div>
             </div>
             <!--Date para la fecha de caducidad del tratamiento-->
