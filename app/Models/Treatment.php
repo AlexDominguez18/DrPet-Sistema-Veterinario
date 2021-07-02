@@ -9,6 +9,8 @@ class Treatment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre','dosis','fecha_caducidad','tipo'];
+
     public function pets ()
     {
         return $this->belongsToMany(Pet::class);

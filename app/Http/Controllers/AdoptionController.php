@@ -49,41 +49,7 @@ class AdoptionController extends Controller
         $pet_id = $request->pet_id;
         return redirect()->route('pet.edit',$pet_id);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Adoption  $adoption
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Adoption $adoption)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Adoption  $adoption
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Adoption $adoption)
-    {
-        // Not used
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Adoption  $adoption
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Adoption $adoption)
-    {
-        // Not used
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

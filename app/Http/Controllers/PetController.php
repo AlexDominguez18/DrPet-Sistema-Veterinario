@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use App\Models\Owner;
 use App\Models\Specie;
+use App\Models\Treatment;
 use App\Rules\MatchPassword;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class PetController extends Controller
@@ -93,7 +93,9 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
-        return view('pets.showPet',compact(['pet']));
+        $treatments = Treatment::get();
+
+        return view('pets.showPet',compact(['pet','treatments']));
     }
 
     /**
@@ -171,4 +173,23 @@ class PetController extends Controller
         }
         return redirect()->route('pet.index');
     }
+
+    public function addTreatment(Request $request, Pet $pet)
+    {
+        $request->validate([
+            "treatment_id" => ['required','exists:App\Models\Treatment,id'],
+        ]);
+        
+        $pet->treatments()->attach($request->treatment_id);
+
+        return redirect()->route('pet.show',$pet);
+    }
+
+    public function deleteTreatment(Pet $pet,Treatment $treatment)
+    {
+        $pet->treatments()->detach($treatment->id);
+        
+        return redirect()->route('pet.show', $pet);
+    }
+
 }

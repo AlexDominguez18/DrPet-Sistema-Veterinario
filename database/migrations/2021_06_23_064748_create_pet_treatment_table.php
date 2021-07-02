@@ -15,7 +15,7 @@ class CreatePetTreatmentTable extends Migration
     {
         Schema::create('pet_treatment', function (Blueprint $table) {
             $table->foreignId('pet_id')->constrained()->onDelete('cascade');
-            $table->foreignId('treatment_id')->constrained();
+            $table->foreignId('treatment_id')->constrained()->onDelete('cascade');
         });
     }
 

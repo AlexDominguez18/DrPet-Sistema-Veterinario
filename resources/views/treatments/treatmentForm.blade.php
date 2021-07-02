@@ -32,14 +32,8 @@
         </div>
         <div class="form-group row">
             <!--Number para la dosis del tratamiento-->
-            <div class="col auto">
-                <label class="sr-only" for="dosis">Dósis</label>
+            <div class="col">
                 <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-syringe"></i>
-                        </div>
-                    </div>
                     <div>
                         <input
                             type="number"
@@ -54,31 +48,36 @@
                             value="{{old('dosis')}}"
                             @endif
                         required>
-                        @error('dosis')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
                     </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">ml/mg</div>
+                    </div>
+                    @error('dosis')
+                    <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
                 </div>
             </div>
             <!--Date para la fecha de caducidad del tratamiento-->
-            <div class="col-sm-1 text-center">
-                <label for="fecha_caducidad">Caducidad:</label>
-            </div>
-            <div class="col-md-8">
-                <input
-                    type="date"
-                    class="form-control @error('fecha_caducidad') is-invalid @enderror"
-                    name="fecha_caducidad"
-                    id="fecha_caducidad"
-                    @if (isset($treatment))
-                    value="{{ $treatment->fecha_caducidad}}"
-                    @else
-                    value="{{old('fecha_caducidad')}}"
-                    @endif
-                required>
-                @error('fecha_caducidad')
-                <div class="invalid-feedback">{{$message}}</div>
-                @enderror
+            <div class="form-group row col-md-8">
+                <div class="col-sm-w">
+                    <label for="fecha_caducidad">Caducidad:</label>
+                </div>
+                <div class="col auto">
+                    <input
+                        type="date"
+                        class="form-control @error('fecha_caducidad') is-invalid @enderror"
+                        name="fecha_caducidad"
+                        id="fecha_caducidad"
+                        @if (isset($treatment))
+                        value="{{ $treatment->fecha_caducidad}}"
+                        @else
+                        value="{{old('fecha_caducidad')}}"
+                        @endif
+                    required>
+                    @error('fecha_caducidad')
+                    <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
+                </div>
             </div>
         </div>
         <!--Select para checar el tipo de tratamiento-->
@@ -88,15 +87,15 @@
                 @if (isset($treatment))
                     @if ($treatment->tipo === "medicina")
                     <option value="medicina" selected>Medicina</option>
-                    @elseif ($treatment->tipo === "vacuna")
-                    <option value="vacuna" selected>Vacuna</option>
+                    <option value="vacuna">Vacuna</option>
                     @else
-                    <option value="ninguno" selected>Ninguno...</option>
+                    <option value="vacuna" selected>Vacuna</option>
+                    <option value="medicina">Medicina</option>
                     @endif
                 @else
                 <option value="medicina">Medicina</option>
                 <option value="vacuna">Vacuna</option>
-                @endif
+                @endif  
             </select>
             @error('tipo')
             <div class="alert alert-danger">{{$message}}</div>

@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Treatment;
 use Illuminate\Http\Request;
+use App\Rules\MatchPassword;
 
 class TreatmentController extends Controller
 {
+    private $validationRules;
+
+    public function __construct()
+    {
+        $this->validationRules = [
+            "nombre" => ['required','min:5','max:50'],
+            "dosis" => ['required','numeric','min:1','max:999'],
+            "fecha_caducidad" => ['required','after:today'],
+            "tipo" => ['required','in:medicina,vacuna'],
+        ];
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +49,11 @@ class TreatmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validationRules);
+        
+        Treatment::create($request->all());
+
+        return redirect()->route('treatment.index');
     }
 
     /**
@@ -48,7 +64,7 @@ class TreatmentController extends Controller
      */
     public function show(Treatment $treatment)
     {
-        //
+        return view('treatments.treatmentShow',compact(['treatment']));
     }
 
     /**
@@ -59,7 +75,7 @@ class TreatmentController extends Controller
      */
     public function edit(Treatment $treatment)
     {
-        //
+        return view('treatments.treatmentEdit',compact(['treatment']));
     }
 
     /**
@@ -71,7 +87,13 @@ class TreatmentController extends Controller
      */
     public function update(Request $request, Treatment $treatment)
     {
-        //
+        $request->validate($this->validationRules);
+
+        $treatmentData = $request->except('_token','_method');
+
+        Treatment::where('id',$treatment->id)->update($treatmentData);
+
+        return redirect()->route('treatment.index');
     }
 
     /**
@@ -80,8 +102,14 @@ class TreatmentController extends Controller
      * @param  \App\Models\Treatment  $treatment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Treatment $treatment)
+    public function destroy(Request $request,Treatment $treatment)
     {
-        //
+        $request->validate([
+            'password' => ['required', new MatchPassword]
+        ]);
+
+        Treatment::destroy($treatment->id);
+
+        return redirect()->route('treatment.index');
     }
 }

@@ -20,6 +20,8 @@ Route::get('/inicio', function (){
 })->middleware('auth');
 
 //Pet routes
+Route::post('/pet/{pet}/add-treatment',[PetController::class,'addTreatment'])->name('pet.add-treatment');
+Route::delete('/pet/{pet}/{treatment}/delete-treatment',[PetController::class,'deleteTreatment'])->name('pet.delete-treatment');
 Route::resource('pet', PetController::class)->middleware('auth');
 
 //Owner routes
