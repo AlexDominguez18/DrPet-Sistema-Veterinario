@@ -39,7 +39,7 @@ class OwnerController extends Controller
             $pet = Pet::findOrFail($request->pet_id);
             return redirect()->route('pet.edit',$pet);
         }
-        return redirect()->route('pet.create');
+        return redirect()->route('pet.create')->with('message','¡Se ha registrado al dueño exitosamente!');
     }
 
     /**
@@ -67,6 +67,6 @@ class OwnerController extends Controller
         $id = $pet->id;
         $pet = Pet::findOrFail($id);
 
-        return redirect()->route('pet.edit',$pet);
+        return redirect()->route('pet.edit',$pet)->with('message','¡Se ha modificado la información del dueño con éxito!');
     }
 }

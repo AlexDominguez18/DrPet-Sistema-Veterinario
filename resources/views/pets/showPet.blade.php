@@ -4,6 +4,12 @@
 <script>document.title = "{{ $pet->nombre }} | Dr. Pet"</script>
 <link rel="icon" href="{{asset('img/DrPetLogo.png')}}" type="image">
 
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
 <div>
     <h3>Mostrando información de {{ $pet->nombre }}</h3>
     <hr>

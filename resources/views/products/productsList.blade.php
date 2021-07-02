@@ -8,6 +8,12 @@
 <script src="{{asset('libs/jquery/jquery.min.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('libs/datatables/dataTables.bootstrap4.min.css') }}">
 
+@if(session()->has('message'))
+<div class="alert alert-success">
+    {{ session()->get('message') }}
+</div>
+@endif
+
 <div class="card-shadow mb-4">
     <div class="card-header py-3">
         <h3 class="m-0 font-weight-bold text-primary">Lista de productos</h3>
@@ -63,7 +69,7 @@
                                                 @endforeach
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                                    <button class="btn btn-secondary" type="submit">Confirmar</button>
+                                                    <button class="btn btn-primary" type="submit">Confirmar</button>
                                                 </div>
                                             </form>
                                         @endif

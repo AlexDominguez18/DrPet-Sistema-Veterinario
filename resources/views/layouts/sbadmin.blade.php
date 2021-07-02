@@ -40,17 +40,15 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Users CRUD Solo los admins pueden-->
-            @auth
-                @if (Auth::user()->admin === 1)
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('/user') }}">
-                        <i class="fas fa-users"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-                @endif
-            @endauth
-
+            @can('viewAny',Auth::user())
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url('/user') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+            @endcan
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 

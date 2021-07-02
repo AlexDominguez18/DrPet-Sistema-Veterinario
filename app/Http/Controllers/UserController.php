@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin')->except('index');
+        $this->middleware('verified')->only(['show','create','edit','update','delete']);
     }
 
     public function index()
@@ -35,11 +35,14 @@ class UserController extends Controller
 
     public function create()
     {
+        $this->authorize('create',User::class);
         return view('users.newUser');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create',User::class);
+
         $request->validate([ 
             "name" => ['required','min:3','max:50'],
             "email" => ['email','unique:App\Models\User,email'],
@@ -57,16 +60,18 @@ class UserController extends Controller
         $mail = new PasswordMailable($request->all());
         Mail::to($request->email)->send($mail);
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('message','¡Usuario creado con éxito!');
     }
 
     public function edit(User $user)
     {
+        $this->authorize('update',$user);
         return view('users.userEdit', compact(['user']));
     }
 
     public function update(Request $request, User $user)
     {
+        $this->authorize('update',$user);
         $request->validate([
             "name" => ['required','min:3','max:50'],
             "email" => ['email']
@@ -93,13 +98,14 @@ class UserController extends Controller
         //Guardamos los cambios
         $userToUpdate->save();
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('message','¡Usuario modificado con éxito!');
     }
 
     public function destroy(User $user)
     {
+        $this->authorize('delete',$user);
         User::destroy($user->id);
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('message','¡Usuario eliminado con exito!');
     }
 }

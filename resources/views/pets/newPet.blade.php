@@ -7,6 +7,11 @@
     <h1 class="h3 mb-0 text-gray-800">Agregar mascota</h1>
 </div>
 <hr>
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
 @yield('owner-form')
 <hr>
 @yield('pet-form', $owners)

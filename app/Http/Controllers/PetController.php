@@ -16,6 +16,8 @@ class PetController extends Controller
 
     public function __construct()
     {
+        $this->middleware('verified')->except('index');
+
         $this->validationRules = [
             "nombre" => ['required','string','min: 3','max:30'],
             "raza" => ['required','string','min:5','max:50'],
@@ -83,7 +85,7 @@ class PetController extends Controller
         }
         Pet::insert($petData);
 
-        return redirect()->route('pet.index');
+        return redirect()->route('pet.index')->with('message','¡Mascota agregada con éxito!');
     }
 
     /**
@@ -146,7 +148,7 @@ class PetController extends Controller
             Pet::where('id', $pet->id)->update(['adoptable' => true]);
         }
 
-        return redirect()->route('pet.index');
+        return redirect()->route('pet.index')->with('message','¡Información de la mascota modificada!');
     }
 
     /**
@@ -175,7 +177,7 @@ class PetController extends Controller
                 Owner::destroy(Owner::find($request->owner_id)->id);
             }
         }
-        return redirect()->route('pet.index');
+        return redirect()->route('pet.index')->with('message','¡Mascota eliminada con éxito!');
     }
 
     public function addTreatment(Request $request, Pet $pet)
@@ -186,14 +188,14 @@ class PetController extends Controller
         
         $pet->treatments()->attach($request->treatment_id);
 
-        return redirect()->route('pet.show',$pet);
+        return redirect()->route('pet.show',$pet)->with('message','¡Se ha añadido un tratamiento a esta mascota!');
     }
 
     public function deleteTreatment(Pet $pet,Treatment $treatment)
     {
         $pet->treatments()->detach($treatment->id);
         
-        return redirect()->route('pet.show', $pet);
+        return redirect()->route('pet.show', $pet)->with('message','¡Se ha eliminado un tratamiento de esta mascota!');
     }
 
 }

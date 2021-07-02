@@ -53,7 +53,7 @@ class TreatmentController extends Controller
         
         Treatment::create($request->all());
 
-        return redirect()->route('treatment.index');
+        return redirect()->route('treatment.index')->with('message','¡Tratamiento añadido con éxito!');
     }
 
     /**
@@ -93,7 +93,7 @@ class TreatmentController extends Controller
 
         Treatment::where('id',$treatment->id)->update($treatmentData);
 
-        return redirect()->route('treatment.index');
+        return redirect()->route('treatment.index')->with('message','¡Información de tratamiento actualizada!');
     }
 
     /**
@@ -110,6 +110,6 @@ class TreatmentController extends Controller
 
         Treatment::destroy($treatment->id);
 
-        return redirect()->route('treatment.index');
+        return redirect()->route('treatment.index')->with('message','¡Tratamiento eliminado con éxito!');
     }
 }

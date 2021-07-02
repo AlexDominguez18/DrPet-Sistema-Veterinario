@@ -33,7 +33,7 @@ Route::get('/', function () {
 //Inicio
 Route::get('/inicio', function (){
     return view('layouts.index');
-})->middleware(['verified','auth'])->name('index');
+})->middleware('auth')->name('index');
 
 //Pet routes
 Route::post('/pet/{pet}/add-treatment',[PetController::class,'addTreatment']
@@ -49,7 +49,7 @@ Route::post('/owner', [OwnerController::class,'store'])->middleware(['verified',
 Route::patch('/owner/{owner}/{pet}',[OwnerController::class,'update'])->middleware(['verified','auth']);
 
 //Users routes
-Route::resource('user',UserController::class)->middleware(['verified','auth']);
+Route::resource('user',UserController::class)->middleware('auth');
 
 //Products routes
 Route::resource('product',ProductController::class)->middleware(['verified','auth']);

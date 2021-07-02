@@ -51,7 +51,7 @@ class ProductController extends Controller
         $request->validate($this->validationRules);
         $productData = $request->except('_token');
         Product::create($productData);
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('message','¡Inventario de nuevo producto registrado!');
     }
 
     /**
@@ -81,7 +81,7 @@ class ProductController extends Controller
 
         //Actualizando la informacion de la mascota
         Product::where('id','=',$product->id)->update($productData);
-        return redirect()->route('product.index',$product);
+        return redirect()->route('product.index',$product)->with('message','¡Inventario de producto modificado con éxito!');
     }
 
     /**
@@ -100,6 +100,6 @@ class ProductController extends Controller
 
         //Eliminando el registro del producto con el ID correspondiente
         Product::destroy($product->id);
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('message','¡Inventario de producto eliminado!');
     }
 }
